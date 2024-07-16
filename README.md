@@ -27,6 +27,8 @@ Stamina, Dribbling, ShotPower, Passing, Accuracy, Defense: Various skill metrics
 Playing: Whether the player is currently playing (true or false).
 PrimaryRole: The primary role of the player (MID, DEF, GK, WS).
 SecondaryRole: The secondary role of the player (MID, DEF, GK, WS).
+
+
 How to Use
 Replace the sample JSON data in the players_json variable with your actual player data.
 
