@@ -337,8 +337,7 @@ function ensureJsonPlayerCards(players) {
     const card = document.createElement("article");
     card.className = "card";
     card.dataset.tier = tier;
-    const darkHorse = ["Ashu", "Vishnu Mohan"].includes(player.Name) ? ` <span class="horse">DARK HORSE</span>` : "";
-    card.innerHTML = `<div><span class="badge ${tier}">${tierLabel}</span>${darkHorse}</div><h3>${player.Name}</h3><small>${inferredRole(player.Name)}</small>`;
+    card.innerHTML = `<div><span class="badge ${tier}">${tierLabel}</span></div><h3>${player.Name}</h3><small>${inferredRole(player.Name)}</small>`;
     grid.appendChild(card);
     cleanPlayerCard(card);
   });
