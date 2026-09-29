@@ -9,7 +9,9 @@ const playersPath = path.join(repoDir, "auctions.json");
 const statePath = process.env.RENEGADES_STATE_PATH || path.join(serverDir, "auction-state.json");
 
 const teams = ["Varun", "Nasiq", "Amrit", "Bhagyesh"];
-const formationRoles = ["GK", "LB", "RB", "CDM", "MW"];
+function formationRoles(userRole = "WINGER") {
+  return userRole === "CDM" ? ["GK", "LB", "RB", "MW", "MW"] : ["GK", "LB", "RB", "CDM", "MW"];
+}
 const goalkeeperPlans = {
   "Vignesh": { target: "20-24", cap: 28 },
   "Ashu": { target: "16-20", cap: 24 },
@@ -31,6 +33,7 @@ function emptyState() {
     budget: 200,
     rosterSize: 9,
     formation: ["GK", "LB", "RB", "CDM", "MID/WING", "YOU: MID/WING"],
+    userRole: "WINGER",
     ownPicks: [],
     opponentPicks: { Nasiq: [], Amrit: [], Bhagyesh: [] },
     unavailablePlayers: []
@@ -69,6 +72,7 @@ function normalizeSnapshot(snapshot) {
     state.opponentPicks[team] = Array.isArray(value.opponentPicks?.[team]) ? value.opponentPicks[team] : [];
   }
   state.unavailablePlayers = Array.isArray(value.unavailablePlayers) ? [...new Set(value.unavailablePlayers)] : [];
+  state.userRole = value.userRole === "CDM" ? "CDM" : "WINGER";
   return state;
 }
 
@@ -88,10 +92,10 @@ function roleScore(player, role) {
   return Object.entries(roleWeights[role]).reduce((sum, [field, weight]) => sum + Number(player[field] || 0) * weight, 0);
 }
 
-function bestFormation(names, players) {
+function bestFormation(names, players, roles) {
   let best = { score: -1, assignments: [] };
   function search(index, used, score, assignments) {
-    if (index === formationRoles.length) {
+    if (index === roles.length) {
       if (score > best.score) best = { score, assignments: [...assignments] };
       return;
     }
@@ -100,7 +104,7 @@ function bestFormation(names, players) {
       if (used.has(name) || !players.has(name)) continue;
       const next = new Set(used);
       next.add(name);
-      search(index + 1, next, score + roleScore(players.get(name), formationRoles[index]), [...assignments, name]);
+      search(index + 1, next, score + roleScore(players.get(name), roles[index]), [...assignments, name]);
     }
   }
   search(0, new Set(), 0, []);
@@ -109,13 +113,14 @@ function bestFormation(names, players) {
 
 function recommendations(state, limit = 3) {
   const players = readPlayers();
+  const roles = formationRoles(state.userRole);
   const owned = new Set((state.ownPicks || []).map(pick => pick.name));
   const unavailable = new Set([
     ...(state.unavailablePlayers || []),
     ...Object.values(state.opponentPicks || {}).flatMap(picks => (picks || []).map(pick => pick.name))
   ]);
-  const assignments = bestFormation([...owned], players);
-  const roleCoverage = formationRoles.map((role, index) => ({
+  const assignments = bestFormation([...owned], players, roles);
+  const roleCoverage = roles.map((role, index) => ({
     role,
     player: assignments[index],
     score: assignments[index] ? Math.round(roleScore(players.get(assignments[index]), role)) : null
@@ -125,8 +130,10 @@ function recommendations(state, limit = 3) {
   const safeNextBid = Math.max(0, state.budget - spent - Math.max(0, open - 1));
   const available = [...players.keys()].filter(name => !owned.has(name) && !unavailable.has(name));
   const byRole = {};
-  for (const role of formationRoles) {
-    const pool = role === "GK" ? available.filter(name => goalkeeperPlans[name]) : available;
+  const pradnyalOwned = owned.has("Pradnyal Gandhi");
+  for (const role of [...new Set(roles)]) {
+    let pool = role === "GK" ? available.filter(name => goalkeeperPlans[name]) : available;
+    if (pradnyalOwned && ["LB", "RB", "CDM"].includes(role)) pool = pool.filter(name => !["Chirag", "Vishnu Mohan"].includes(name));
     byRole[role] = pool
       .map(name => ({
         name,
@@ -139,7 +146,13 @@ function recommendations(state, limit = 3) {
   }
   return {
     budget: { spent, remaining: state.budget - spent, openSlots: open, safeNextBid },
-    formationNote: "You occupy the second MID/WINGER position.",
+    userRole: state.userRole,
+    formationNote: state.userRole === "CDM" ? "You occupy CDM; buy two MID/WINGER starters." : "You occupy one MID/WINGER position; buy the CDM starter.",
+    anchorStrategy: pradnyalOwned
+      ? "Pradnyal is secured; Chirag and Vishnu are optional. Spend next on goalkeeper, width, and depth."
+      : unavailable.has("Pradnyal Gandhi")
+        ? "Pradnyal is gone; preserve up to 65 points for Vishnu or Chirag before buying rotation depth. This includes the S-tier 10-point bidding-war buffer."
+        : "Protect up to 70 points for Pradnyal. If he is lost, transfer up to 65 points to Vishnu or Chirag. These ceilings include the S-tier 10-point bidding-war buffer.",
     roleCoverage,
     recommendations: byRole
   };
@@ -192,6 +205,15 @@ const tools = [
     }
   },
   {
+    name: "set_user_role",
+    description: "Set whether Varun will play WINGER or CDM so the required auction slots recalculate.",
+    inputSchema: {
+      type: "object",
+      properties: { role: { type: "string", enum: ["WINGER", "CDM"] } },
+      required: ["role"], additionalProperties: false
+    }
+  },
+  {
     name: "reset_auction",
     description: "Clear all MCP auction picks and restore an empty 200-point state.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false }
@@ -225,6 +247,11 @@ function callTool(name, args = {}) {
     return textResult({ state: writeState(state), advice: recommendations(state, 3) });
   }
   if (name === "recommend_next_pick") return textResult(recommendations(readState(), args.limit || 3));
+  if (name === "set_user_role") {
+    const state = readState();
+    state.userRole = args.role;
+    return textResult({ state: writeState(state), advice: recommendations(state, 3) });
+  }
   if (name === "reset_auction") return textResult(writeState(emptyState()));
   throw new Error(`Unknown tool: ${name}`);
 }
