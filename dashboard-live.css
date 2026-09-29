@@ -3,7 +3,7 @@
   height: 96px;
   flex: 0 0 auto;
   object-fit: contain;
-  border: 1px solid #63343a;
+  border: 1px solid #8e0619;
   border-radius: 12px;
   background: #1a1b1d;
   filter: drop-shadow(0 5px 14px rgba(0, 0, 0, .45));
@@ -61,7 +61,7 @@
   padding: 4px 9px;
   border: 1px solid var(--red);
   border-radius: 999px;
-  background: #4a2c31;
+  background: #450c15;
   font-size: 11px;
 }
 
@@ -70,7 +70,7 @@
   margin-top: 9px;
   padding: 10px;
   border-left: 3px solid var(--red);
-  background: #412b2f;
+  background: #3d141a;
 }
 
 .need-good { border-left-color: var(--accent); background: #343035; }
@@ -149,9 +149,9 @@
   right: 9px;
   min-width: 48px;
   padding: 4px 7px;
-  border: 1px solid #7b454b;
+  border: 1px solid #8f0b1e;
   border-radius: 7px;
-  background: #352a2c;
+  background: #310b11;
   color: var(--muted);
   font-size: 9px;
   line-height: 1.1;
@@ -207,7 +207,7 @@
 .team-tracker-head strong { color: var(--accent-soft); }
 .team-pick-controls { display: grid; grid-template-columns: 1fr 68px auto; gap: 6px; margin: 10px 0; }
 .team-pick-row { padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
-.team-pick-row button { padding: 3px 7px; background: #4a2c31; color: var(--ink); }
+.team-pick-row button { padding: 3px 7px; background: #450c15; color: var(--ink); }
 .team-empty { padding: 9px 0; color: var(--muted); font-size: 12px; }
 
 .goalie-row {
