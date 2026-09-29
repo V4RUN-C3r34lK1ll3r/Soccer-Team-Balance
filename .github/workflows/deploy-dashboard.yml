@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - Renegades_Auction_Dashboard.html
+      - dashboard-live.css
+      - dashboard-live.js
+      - auctions.json
+      - renegades-logo.jpg
       - .github/workflows/deploy-dashboard.yml
   workflow_dispatch:
 
@@ -31,6 +35,10 @@ jobs:
         run: |
           mkdir public
           cp Renegades_Auction_Dashboard.html public/index.html
+          cp dashboard-live.css public/dashboard-live.css
+          cp dashboard-live.js public/dashboard-live.js
+          cp auctions.json public/auctions.json
+          cp renegades-logo.jpg public/renegades-logo.jpg
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
