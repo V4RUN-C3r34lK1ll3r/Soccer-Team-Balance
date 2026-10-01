@@ -11,6 +11,17 @@
 
 .header-copy { flex: 1; min-width: 0; }
 .panel { min-width: 0; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.header-actions a,
+.header-plans-link {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  border-radius: 9px;
+  padding: 10px 14px;
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
 
 .coverage-grid {
   display: grid;
@@ -234,6 +245,9 @@
   header { flex-wrap: wrap; }
   header h1 { overflow-wrap: anywhere; }
   header > button { width: 100%; margin: 0; }
+  .header-actions { width: 100%; }
+  .header-actions > * { flex: 1; text-align: center; }
+  .header-plans-link { width: 100%; text-align: center; }
   .slot { grid-template-columns: 25px minmax(0, 1fr) 70px; }
   .action-row { grid-template-columns: 1fr; }
   .team-pick-controls { grid-template-columns: 1fr 70px; }

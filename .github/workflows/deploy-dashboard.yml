@@ -7,6 +7,9 @@ on:
       - Renegades_Auction_Dashboard.html
       - dashboard-live.css
       - dashboard-live.js
+      - match-plans.html
+      - match-plans.css
+      - match-plans.js
       - auctions.json
       - renegades-logo.jpg
       - .github/workflows/deploy-dashboard.yml
@@ -37,6 +40,9 @@ jobs:
           cp Renegades_Auction_Dashboard.html public/index.html
           cp dashboard-live.css public/dashboard-live.css
           cp dashboard-live.js public/dashboard-live.js
+          cp match-plans.html public/match-plans.html
+          cp match-plans.css public/match-plans.css
+          cp match-plans.js public/match-plans.js
           cp auctions.json public/auctions.json
           cp renegades-logo.jpg public/renegades-logo.jpg
 

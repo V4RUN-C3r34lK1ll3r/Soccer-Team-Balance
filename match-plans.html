@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#202225">
+  <title>Renegades | Matchday Playbook</title>
+  <meta name="description" content="Renegades six-a-side formations, opponent plans, player roles, and rotations.">
+  <link rel="stylesheet" href="match-plans.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Renegades home">
+        <img src="renegades-logo.jpg" alt="Renegades soccer logo">
+        <span><small>RENEGADES · SIX-A-SIDE</small><strong>Matchday Playbook</strong></span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="#plan">Game plan</a><a href="#roles">Roles</a><a href="#rotation">Rotations</a>
+        <button type="button" onclick="window.print()">Print</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">PLAY TOGETHER · TALK EARLY · ROTATE FAIRLY</div>
+          <h1>Simple roles.<br><span>One connected team.</span></h1>
+          <p>Our base shape is <strong>2–2–1</strong>. We stay compact without the ball, keep one passing outlet available, and rotate without losing our defensive structure.</p>
+          <div class="hero-actions"><a class="primary-action" href="#plan">Open match plans</a><a class="secondary-action" href="#roles">Read your role</a></div>
+        </div>
+        <aside class="team-rule" aria-label="Team rule">
+          <span class="rule-number">01</span>
+          <div><small>OUR NON-NEGOTIABLE</small><h2>When one presses,<br>one covers.</h2><p>No two players chase the same ball. The nearest player applies pressure; the next player protects the pass or runner.</p></div>
+        </aside>
+      </section>
+
+      <section class="principles" aria-label="Team principles">
+        <article><b>01</b><span><strong>Stay compact</strong>Keep the defense and midfield connected.</span></article>
+        <article><b>02</b><span><strong>Play the easy pass</strong>Use one- and two-touch football when possible.</span></article>
+        <article><b>03</b><span><strong>Protect the middle</strong>Show opponents toward the sideline.</span></article>
+        <article><b>04</b><span><strong>Reset together</strong>Recover our shape immediately after losing the ball.</span></article>
+      </section>
+
+      <section id="plan" class="section-block planner">
+        <div class="section-heading"><div><div class="eyebrow">INTERACTIVE TACTICS BOARD</div><h2>Choose the opponent and game state</h2></div><p>Tap the controls to update the formation, assignments, and instructions.</p></div>
+        <div class="tab-group" aria-label="Choose opponent"><span>Opponent</span><div id="opponentTabs" class="tabs" role="tablist"></div></div>
+        <div class="tab-group" aria-label="Choose game state"><span>Match state</span><div id="shapeTabs" class="tabs" role="tablist"></div></div>
+        <div class="tactics-layout">
+          <article class="pitch-panel">
+            <div class="pitch-topline"><div><small id="shapeLabel">BASE SHAPE</small><h3 id="shapeTitle">2–2–1 · Balanced</h3></div><div id="mentality" class="mentality">BALANCED</div></div>
+            <div id="pitch" class="pitch" aria-live="polite"></div><p id="pitchFootnote" class="pitch-footnote"></p>
+          </article>
+          <aside class="opponent-panel">
+            <div class="opponent-kicker">OPPONENT PLAN</div><h3 id="opponentName"></h3><p id="opponentSummary" class="opponent-summary"></p>
+            <div class="threat-box"><small>PRIMARY THREATS</small><div id="threats" class="threat-list"></div></div>
+            <ol id="instructions" class="instructions"></ol>
+            <div class="matchup-callout"><small>MARKING PLAN</small><p id="markingPlan"></p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-block lineup-section">
+        <div class="section-heading"><div><div class="eyebrow">STARTING REFERENCE</div><h2>Base unit and rotation options</h2></div><p>This is a starting point. Fitness, matchups, and communication decide the actual rotation.</p></div>
+        <div class="lineup-grid">
+          <article><span>GK</span><div><strong>Minti</strong><small>DJ · Shailesh</small></div></article>
+          <article><span>DEF</span><div><strong>Chirag</strong><small>CDM / RB leader</small></div></article>
+          <article><span>DEF</span><div><strong>DJ</strong><small>Shailesh · Rajeev</small></div></article>
+          <article><span>MID</span><div><strong>Prajna</strong><small>Sangram rotation</small></div></article>
+          <article><span>FWD</span><div><strong>Varun</strong><small>Marker when needed</small></div></article>
+          <article><span>FWD</span><div><strong>Nuhu</strong><small>Vivek rotation</small></div></article>
+        </div>
+      </section>
+
+      <section id="roles" class="section-block role-section">
+        <div class="section-heading"><div><div class="eyebrow">ROLE GUIDE</div><h2>What every position is expected to do</h2></div><p>Read the three moments: when we have the ball, when we lose it, and when we defend.</p></div>
+        <div id="roleGrid" class="role-grid"></div>
+      </section>
+
+      <section id="rotation" class="section-block rotation-section">
+        <div class="rotation-copy">
+          <div class="eyebrow">ROTATION PLAN</div><h2>Fresh legs without losing our shape</h2>
+          <p>We have a larger squad, so everyone should get meaningful minutes. Rotations happen at calm moments and each substitute receives one clear role before entering.</p>
+          <ul>
+            <li><strong>Midfield:</strong> Prajna and Sangram rotate. One presses while the other player in midfield protects the center.</li>
+            <li><strong>Goalkeeper:</strong> Minti starts; DJ and Shailesh provide planned cover. Change at halftime or between games when possible.</li>
+            <li><strong>Defense:</strong> Chirag leads the line. Shailesh, Minti, Rajeev, and DJ rotate around him.</li>
+            <li><strong>Attack:</strong> Nuhu and Varun lead; Vivek provides fresh legs and presses when introduced.</li>
+            <li><strong>Special marking:</strong> DJ or Varun tracks quick opponents such as Pradnyal or Bhagyesh.</li>
+          </ul>
+        </div>
+        <aside class="rotation-card"><small>SUBSTITUTION CHECK</small><h3>Before a player enters</h3><div><b>1</b><span>Tell them the position</span></div><div><b>2</b><span>Name the player or space they cover</span></div><div><b>3</b><span>Confirm who is coming off</span></div><div><b>4</b><span>Make the change when the ball is safe</span></div></aside>
+      </section>
+
+      <section class="captain-note"><img src="renegades-logo.jpg" alt="" aria-hidden="true"><div><div class="eyebrow">FROM THE CAPTAIN</div><blockquote>“Compete hard, communicate positively, and enjoy playing together. Roles may change with the game, but our effort for each other should never change.”</blockquote></div></section>
+    </main>
+    <footer><span>RENEGADES · MATCHDAY PLAYBOOK</span><a href="./">Auction dashboard</a></footer>
+  </div>
+  <script src="match-plans.js"></script>
+</body>
+</html>
